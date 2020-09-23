@@ -42,6 +42,7 @@ export default function displaySongList_v1(parentDiv) {
         newPrev.src = "./dist/assets/songs/previews/" + tSrc + ".ogg";
         newTrack.className = "trackImg";
         newTrack.id = tID;
+        newTrack.preload = "auto";
         newTrack.muted = true;
         newPrev.id = tID + "a";
         newPrev.loop = true;
