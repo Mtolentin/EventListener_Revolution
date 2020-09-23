@@ -48,8 +48,17 @@ export default function displaySongList_v1(parentDiv) {
         newPrev.loop = true;
         parentDiv.appendChild(newTrack);
         document.getElementById("audioChannel").appendChild(newPrev);
-        newTrack.onmouseover = () => { newPrev.play(); };
-        newTrack.onmouseout = () => { newPrev.pause(); newPrev.load(); };
+        let newPromise;
+        newTrack.onmouseover = () => { newPromise = newPrev.play(); };
+        newTrack.onmouseout = () => { 
+            if (newPromise !== undefined) {
+                newPromise.then ( () => {
+                    newPrev.pause();
+                    newPrev.load(); 
+                })
+            } else {
+                newPromise.catch ( err => {} )
+            }};
         return newTrack;
     }
     
