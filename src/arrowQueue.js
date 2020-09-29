@@ -17,7 +17,6 @@ ArrowQueue.prototype.move = function move(context) {
         this.arrows.forEach( arrow => {
             arrow.pos -= arrow.spd;
             if (arrow.pos <= -100) {
-                // debugger;
                 this.arrows.splice(this.arrows.indexOf(arrow),1);
                 //draw 'missed' using context
             }

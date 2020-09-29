@@ -98,36 +98,3 @@ export default function displaySongList_v1(parentDiv) {
         }, 3000)
     }
 }
-
-    // function deleteChild() { 
-    //     var e = document.querySelector("ul"); 
-        
-    //     //e.firstElementChild can be used. 
-    //     var child = e.lastElementChild;  
-    //     while (child) { 
-    //         e.removeChild(child); 
-    //         child = e.lastElementChild; 
-    //     } 
-    // } 
-
-
-    // let nirvana = document.createElement("img");
-    // nirvana.src = "./dist/assets/gui/banners/nirvana.png";
-    // nirvana.className = "trackImg";
-    // nirvana.id = "trackNirvana";
-    
-    // let danzaKaduro = document.createElement("img");
-    // danzaKaduro.src = "./dist/assets/gui/banners/danzaKaduro.png";
-    // danzaKaduro.className = "trackImg";
-    // danzaKaduro.id = "trackDanzaKaduro";
-    
-    // let cebuana = document.createElement("img");
-    // cebuana.src = "./dist/assets/gui/banners/cebuana.png";
-    // cebuana.className = "trackImg";
-    // cebuana.id = "trackCebuana";
-
-    // parentDiv.appendChild(nirvana);
-
-    // setTimeout(function () { parentDiv.appendChild(danzaKaduro); }, 2000);
-
-    // setTimeout(function () { parentDiv.appendChild(cebuana); }, 4000);

@@ -138,7 +138,6 @@ export default function dibujar(chosenSong) {
             // console.log([(Date.now() - origin) / 1000, evt.key]);
         }
 
-
         function drawGameObject(type, direction, pos = 0) {
             if (type === "stageArrow" || "queueArrow") {
                 let arrowParams = [];
@@ -162,15 +161,14 @@ export default function dibujar(chosenSong) {
                         break;
                     default:
                 }
-
                 context.save();
                 context.translate(arrowParams[0][0], arrowParams[0][1]);
                 context.rotate(arrowParams[0][2]);
                 context.translate(arrowParams[0][3], arrowParams[0][4]);
                 context.drawImage(
                     type, column * frameWidth, row * frameHeight,
-                    frameWidth, frameHeight, arrowParams[1][0], arrowParams[1][1], 
-                    frameWidth, frameHeight);
+                    frameWidth, frameHeight, arrowParams[1][0], 
+                    arrowParams[1][1], frameWidth, frameHeight);
                 context.restore();
             } else {
 
