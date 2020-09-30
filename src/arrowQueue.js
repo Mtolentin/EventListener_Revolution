@@ -27,38 +27,12 @@ ArrowQueue.prototype.move = function move(context) {
 ArrowQueue.prototype.judge = function judge(key) {
     if (this.arrows[0] && this.arrows[0] === key) {
         let timeDifference = Math.abs(this.arrows[0].pos - 10);
-        let continueCombo = false;
         switch (true) {
-            case (timeDifference < 44):
-                // Perfect
-                this.comboCount += 1;
-                continueCombo = true;
-                break;
-            case (timeDifference < 104):
-                // Great
-                this.comboCount += 1;
-                continueCombo = true;
-                break;
-            case (timeDifference < 138):
-                // Good
-                break;
-            case (timeDifference < 184):
-                // Boo
-                break;
-            default:
-                continueCombo = true;
-                break;
-        }
-
-        if (continueCombo) {
-            if (this.comboCount > 3) {
-
-            } else {
-
-            }
-            
-        } else {
-            this.comboCount = 0;
+            case (timeDifference < 44): return 4; // Perfect
+            case (timeDifference < 104): return 3; // Great
+            case (timeDifference < 138): return 2; // Good
+            case (timeDifference < 184): return 1; // Boo
+            default: return 0;
         }
     }
 }

@@ -124,6 +124,7 @@ export default function dibujar(chosenSong) {
         let maxFrame = numColumns * numRows - 1;
         let column = currentFrame % numColumns;
         let row = Math.floor(currentFrame / numColumns);
+
         function registerPress(evt) {
             evt.preventDefault();
             theQueue.judge(evt.key);
