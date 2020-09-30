@@ -111,10 +111,10 @@ export default function dibujar(chosenSong) {
     newVideo.play();
     newVideo.onplaying = () => { animate(); };
     
+    
     function animate() {
         let origin = Date.now();
         let theQueue = new ArrowQueue(context);
-        console.log(Date.now() - origin);
         document.addEventListener("keydown", registerPress);
         let numColumns = 5;
         let numRows = 20;
@@ -124,19 +124,34 @@ export default function dibujar(chosenSong) {
         let maxFrame = numColumns * numRows - 1;
         let column = currentFrame % numColumns;
         let row = Math.floor(currentFrame / numColumns);
+        let comboCount = 0;
+        let comboContinuing = false;
 
         function registerPress(evt) {
             evt.preventDefault();
-            theQueue.judge(evt.key);
-            switch (evt.key) {
-                case "ArrowLeft": createParticles(218, 69); break;
-                case "ArrowDown": createParticles(342, 69); break;
-                case "ArrowUp": createParticles(458, 69); break;
-                case "ArrowRight": createParticles(587, 69); break;
-                default: break;
-            }
+            let timingGrade = theQueue.judge(evt.key);
+            if (timingGrade > 0) {
+                verdict.className = "";
+                switch (timingGrade) {
+                    case 4: verdict.classList.add("perfect"); 
+                        comboContinuing = true; break;
+                    case 3: verdict.classList.add("great");
+                        comboContinuing = true; break;
+                    case 2: verdict.classList.add("good"); 
+                        comboContinuing = false; break;
+                    case 1: verdict.classList.add("boo"); 
+                        comboContinuing = false; break;
+                }
 
-            // console.log([(Date.now() - origin) / 1000, evt.key]);
+                if (comboContinuing) {
+                    switch (evt.key) {
+                        case "ArrowLeft": createParticles(218, 69); break;
+                        case "ArrowDown": createParticles(342, 69); break;
+                        case "ArrowUp": createParticles(458, 69); break;
+                        case "ArrowRight": createParticles(587, 69); break;
+                    }
+                }
+            }
         }
 
         function drawGameObject(type, direction, pos = 0) {
@@ -177,8 +192,6 @@ export default function dibujar(chosenSong) {
         }
 
         let stageLoop = setInterval(function() {
-            // console.log((Date.now() - origin) / 1000);
-            currentFrame++;
             if (currentFrame > maxFrame) { currentFrame = 0; }
             column = currentFrame % numColumns;
             row = Math.floor(currentFrame / numColumns);
@@ -200,12 +213,14 @@ export default function dibujar(chosenSong) {
                     if (!stageQueue[0]) {break;}
                 }
             }
-
+            
             if (theQueue.arrows[0]) {
                 theQueue.arrows.forEach( arrow => {
                     drawGameObject(queueArrow, arrow.direction, arrow.pos);
                 })
             }  
+
+            currentFrame++;
         }, speed);
 
         newVideo.onended = function () { clearInterval(stageLoop); }

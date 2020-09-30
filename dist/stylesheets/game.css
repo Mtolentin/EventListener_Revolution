@@ -11,6 +11,10 @@
     display: none;
 }
 
+#verdict .perfect {
+    display: inline;
+}
+
 #comboScore {
     position: absolute;
     text-align: center;
