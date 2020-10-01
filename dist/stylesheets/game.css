@@ -2,16 +2,19 @@
     object-fit: cover;
     position: absolute;
     object-position: 0px 0px;
-    top: 162px;
-    left: 317px;
+    top: 165px;
+    left: 279px;
     height: 34px;
     width: 265px;
     z-index: 6;
     clip: rect(0px,717px,37px, 0px);
+}
+
+#verdict.empty {
     display: none;
 }
 
-#verdict .perfect {
+#verdict.perfect {
     display: inline;
 }
 
@@ -19,11 +22,18 @@
     position: absolute;
     text-align: center;
     width: 800px;
-    top: 204px;
-    left: 116px;
+    top: 207px;
+    left: 109px;
     font-family: righteous;
     font-size: 34px;
     z-index: 6;
     color: darkmagenta;
+}
+
+#comboScore.empty {
     display: none;
+}
+
+#comboScore.active {
+    display: inline;
 }

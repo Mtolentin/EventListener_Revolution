@@ -14,6 +14,7 @@ export default function dibujar(chosenSong) {
     let verdict = document.createElement("img");
     verdict.src = "./dist/assets/gui/judge.png";
     verdict.id = "verdict";
+    verdict.classList.add("empty");
     parentDiv.appendChild(verdict);
     parentDiv.insertBefore(verdict, canvas);
 
@@ -111,10 +112,9 @@ export default function dibujar(chosenSong) {
     newVideo.play();
     newVideo.onplaying = () => { animate(); };
     
-    
     function animate() {
         let origin = Date.now();
-        let theQueue = new ArrowQueue(context);
+        let theQueue = new ArrowQueue();
         document.addEventListener("keydown", registerPress);
         let numColumns = 5;
         let numRows = 20;
@@ -143,7 +143,7 @@ export default function dibujar(chosenSong) {
                         comboContinuing = false; break;
                 }
 
-                if (comboContinuing) {
+                if (comboCount > 0) {
                     switch (evt.key) {
                         case "ArrowLeft": createParticles(218, 69); break;
                         case "ArrowDown": createParticles(342, 69); break;
@@ -196,16 +196,14 @@ export default function dibujar(chosenSong) {
             column = currentFrame % numColumns;
             row = Math.floor(currentFrame / numColumns);
             context.clearRect(0, 0, canvas.width, canvas.height);
-            
             drawGameObject(stageArrow, "ArrowLeft");
             drawGameObject(stageArrow, "ArrowDown");
             drawGameObject(stageArrow, "ArrowUp");
             drawGameObject(stageArrow, "ArrowRight");
-            
             let i = particles.length;
             while( i-- ) { particles[i].draw(); particles[i].update( i ); }
-            // debugger
-            theQueue.move(context);
+
+            theQueue.move();
             if (stageQueue[0]) {
                 while (Date.now() - origin >= stageQueue[0][0]) {
                     theQueue.spawn(stageQueue[0][1], speed);
@@ -213,16 +211,13 @@ export default function dibujar(chosenSong) {
                     if (!stageQueue[0]) {break;}
                 }
             }
-            
             if (theQueue.arrows[0]) {
                 theQueue.arrows.forEach( arrow => {
                     drawGameObject(queueArrow, arrow.direction, arrow.pos);
                 })
-            }  
-
+            }
             currentFrame++;
         }, speed);
-
         newVideo.onended = function () { clearInterval(stageLoop); }
     }
 }

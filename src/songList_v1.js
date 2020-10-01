@@ -23,17 +23,17 @@ export default function displaySongList_v1(parentDiv) {
     let trackList = [];
     setTimeout( () => {
         trackList.push(createTrack("nirvana", "trackNirvana"));
-    }, 750);
+    }, 550);
 
     setTimeout( () => {
         trackList.push(createTrack("danzaKaduro", "trackDanzaKaduro"));
-    }, 1500);
+    }, 1300);
 
     setTimeout( () => {
         trackList.push(createTrack("cebuana", "trackCebuana"));
         trackList[trackList.length - 1].addEventListener("animationend", 
             makeSelection(), {once: true});
-    }, 2250);
+    }, 1950);
     
     function createTrack(tSrc, tID) {
         let newTrack = document.createElement("img");

@@ -1,6 +1,4 @@
-function ArrowQueue(context) {
-    this.arrows = [];
-}
+function ArrowQueue() { this.arrows = []; }
 
 ArrowQueue.prototype.spawn = function spawn(direction, bpm) {
     let arrow = {
@@ -10,16 +8,17 @@ ArrowQueue.prototype.spawn = function spawn(direction, bpm) {
         canClick: true
     }
     this.arrows.push(arrow);
-
 }
 
-ArrowQueue.prototype.move = function move(context) {
+ArrowQueue.prototype.move = function move() {
     if (this.arrows[0]) {
         this.arrows.forEach( arrow => {
             arrow.pos -= arrow.spd;
             if (arrow.pos <= -100) {
+                let verdict = document.getElementById("verdict");
                 this.arrows.splice(this.arrows.indexOf(arrow),1);
-                //draw 'missed' using context
+                verdict.className = "";
+                verdict.classList.add("missed");
             }
         });
     }
@@ -48,29 +47,10 @@ ArrowQueue.prototype.judge = function judge(key) {
                     this.arrows[this.arrows.indexOf(hitArrow)].canClick = false;
                     return 1;
                 }
-
             }
-            // let timeDifference = Math.abs(this.arrows[scan].pos - 10);
-            
-            // if (timeDifference < 44 && this.arrows[scan].direction === key ) {
-            //     this.arrows.splice(this.arrows[scan],1);
-            //     return 4;
-            // }
-            // if (timeDifference < 104 && this.arrows[scan].direction === key ) {
-            //     this.arrows.splice(this.arrows[scan],1);
-            //     return 3;
-            // }
-            // if (timeDifference < 138 && this.arrows[scan].direction === key ) { 
-            //     this.arrows[scan].canClick = false;
-            //     return 2; 
-            // }
-            // if (timeDifference < 184 && this.arrows[scan].direction === key ) {
-            //     this.arrows[scan].canClick = false;
-            //     return 1;
-            // }
             scan++;
         }
         return 0;
     }
-
+    
 module.exports = ArrowQueue;
