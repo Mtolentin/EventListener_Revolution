@@ -133,7 +133,7 @@ export default function dibujar(chosenSong) {
             if (timingGrade > 0) {
                 verdict.className = "";
                 switch (timingGrade) {
-                    case 4: verdict.classList.add("perfect"); 
+                    case 4: verdict.classList.add("perfect");
                         comboContinuing = true; break;
                     case 3: verdict.classList.add("great");
                         comboContinuing = true; break;

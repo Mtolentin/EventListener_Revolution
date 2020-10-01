@@ -26,33 +26,51 @@ ArrowQueue.prototype.move = function move(context) {
 }
 
 ArrowQueue.prototype.judge = function judge(key) {
-    let arrowScan = 0
-    while (arrowScan < 4) {
-        if (this.arrows[arrowScan] && this.arrows[arrowScan].direction === key 
-            && this.arrows[arrowScan].canClick === true) {
+    let scan = 0;
+    while (scan < 4) {
+        if (this.arrows[scan] && this.arrows[scan].canClick === true
+            && this.arrows[scan].direction === key) {
+                let hitArrow = this.arrows[scan];
+                let timing = Math.abs(this.arrows[scan].pos - 10);
+                if (timing < 44) {
+                    this.arrows.splice(this.arrows.indexOf(hitArrow), 1);
+                    return 4;
+                }
+                if (timing < 104) {
+                    this.arrows.splice(this.arrows.indexOf(hitArrow), 1);
+                    return 3;
+                }
+                if (timing < 138) {
+                    this.arrows[this.arrows.indexOf(hitArrow)].canClick = false;
+                    return 2;
+                }
+                if (timing < 184) {
+                    this.arrows[this.arrows.indexOf(hitArrow)].canClick = false;
+                    return 1;
+                }
 
-            let timeDifference = Math.abs(this.arrows[0].pos - 10);
-            console.log(timeDifference);
-            if (timeDifference < 44) {
-                this.arrows.splice(this.arrows[arrowScan],1); 
-                return 4;
             }
-            if (timeDifference < 104) {
-                this.arrows.splice(this.arrows[arrowScan],1); 
-                return 3;
-            }
-            if (timeDifference < 138) { 
-                this.arrows[arrowScan].canClick = false;
-                return 2; 
-            }
-            if (timeDifference < 184) {
-                this.arrows[arrowScan].canClick = false;
-                return 1;
-            }
+            // let timeDifference = Math.abs(this.arrows[scan].pos - 10);
+            
+            // if (timeDifference < 44 && this.arrows[scan].direction === key ) {
+            //     this.arrows.splice(this.arrows[scan],1);
+            //     return 4;
+            // }
+            // if (timeDifference < 104 && this.arrows[scan].direction === key ) {
+            //     this.arrows.splice(this.arrows[scan],1);
+            //     return 3;
+            // }
+            // if (timeDifference < 138 && this.arrows[scan].direction === key ) { 
+            //     this.arrows[scan].canClick = false;
+            //     return 2; 
+            // }
+            // if (timeDifference < 184 && this.arrows[scan].direction === key ) {
+            //     this.arrows[scan].canClick = false;
+            //     return 1;
+            // }
+            scan++;
         }
-        arrowScan++;
+        return 0;
     }
-    return 0;
-}
 
 module.exports = ArrowQueue;
