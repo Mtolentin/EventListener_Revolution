@@ -125,7 +125,6 @@ export default function dibujar(chosenSong) {
         let column = currentFrame % numColumns;
         let row = Math.floor(currentFrame / numColumns);
         let comboCount = 0;
-        let comboContinuing = false;
 
         function registerPress(evt) {
             evt.preventDefault();
@@ -134,13 +133,13 @@ export default function dibujar(chosenSong) {
                 verdict.className = "";
                 switch (timingGrade) {
                     case 4: verdict.classList.add("perfect");
-                        comboContinuing = true; break;
+                        comboCount = 0; break;
                     case 3: verdict.classList.add("great");
-                        comboContinuing = true; break;
+                        comboCount = 0; break;
                     case 2: verdict.classList.add("good"); 
-                        comboContinuing = false; break;
+                        comboCount = 0; break;
                     case 1: verdict.classList.add("boo"); 
-                        comboContinuing = false; break;
+                        comboCount = 0; break;
                 }
 
                 if (comboCount > 0) {
