@@ -1,3 +1,25 @@
+#banner.offline{
+    display: none;
+}
+
+#banner.ready{
+    position: absolute;
+    top: 177px;
+    left: 142px;
+    height: 118px;
+    z-index: 6;
+}
+
+#banner.go{
+    position: absolute;
+    top: 185px;
+    left: 134px;
+    height: 76px;
+    z-index: 6;
+}
+ 
+
+
 #verdict{
     object-fit: cover;
     position: absolute;

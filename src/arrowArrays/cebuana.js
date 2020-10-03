@@ -1,7 +1,10 @@
 
 
 let cebuana = [
-    [7688, "ArrowRight"]
+      [4700, "Ready"]
+    , [6300, "Go"]
+    , [7687, "Clear"]
+    , [7688, "ArrowRight"]
     , [7683, "ArrowLeft"]
     , [9298, "ArrowRight"]
     , [9623, "ArrowDown"]

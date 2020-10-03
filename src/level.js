@@ -10,13 +10,37 @@ export default function dibujar(chosenSong) {
     canvas.width = 800;
     canvas.height = 600;
     parentDiv.appendChild(canvas);
+    
+    let audioChannel = document.getElementById("audioChannel");
 
+    let fXReady = document.createElement("audio");
+    fXReady.id = "fXReady";
+    fXReady.src = "./dist/assets/sounds/rUReady.ogg";
+    audioChannel.appendChild(fXReady);
+
+    let fXGo = document.createElement("audio");
+    fXGo.id = "fXGo";
+    fXGo.src = "./dist/assets/sounds/go.ogg";
+    audioChannel.appendChild(fXGo);
+
+    let fXCheering = document.createElement("audio");
+    fXCheering.id = "fXCheering";
+    fXCheering.src = "./dist/assets/sounds/cheering.ogg";
+    audioChannel.appendChild(fXCheering);
+    
     let verdict = document.createElement("img");
     verdict.src = "./dist/assets/gui/judge.png";
     verdict.id = "verdict";
     verdict.classList.add("empty");
     parentDiv.appendChild(verdict);
     parentDiv.insertBefore(verdict, canvas);
+
+    let banner = document.createElement("img");
+    banner.id = "banner";
+    banner.classList.add("offline");
+    banner.src = "./dist/assets/gui/ready.png";
+    parentDiv.appendChild(banner);
+    parentDiv.insertBefore(banner, canvas);
 
     let comboScore = document.createElement("div");
     comboScore.innerText = "0 combo";
@@ -153,8 +177,8 @@ export default function dibujar(chosenSong) {
             }
         }
 
-        function drawGameObject(type, direction, pos = 0) {
-            if (type === "stageArrow" || "queueArrow") {
+        function drawGameObject(type, direction = "ArrowLeft", pos = 0) {
+            if (typeof type !== "string") {
                 let arrowParams = [];
 
                 switch (direction) {
@@ -186,7 +210,25 @@ export default function dibujar(chosenSong) {
                     arrowParams[1][1], frameWidth, frameHeight);
                 context.restore();
             } else {
-
+                theQueue.arrows.splice(0,1);
+                switch(type) {
+                    case "Ready":
+                        banner.className = "";
+                        banner.classList.add("ready");
+                        fXReady.play();
+                        break;
+                    case "Go":
+                        banner.classList.add("offline");
+                        banner.classList.remove("ready");
+                        banner.src = "./dist/assets/gui/go.png";
+                        banner.classList.remove("offline");
+                        banner.classList.add("go");
+                        fXGo.play();
+                        break;
+                    default:
+                        banner.className = "";
+                        banner.classList.add("offline");
+                }
             }
         }
 
@@ -201,7 +243,6 @@ export default function dibujar(chosenSong) {
             drawGameObject(stageArrow, "ArrowRight");
             let i = particles.length;
             while( i-- ) { particles[i].draw(); particles[i].update( i ); }
-
             theQueue.move();
             if (stageQueue[0]) {
                 while (Date.now() - origin >= stageQueue[0][0]) {
@@ -211,8 +252,17 @@ export default function dibujar(chosenSong) {
                 }
             }
             if (theQueue.arrows[0]) {
-                theQueue.arrows.forEach( arrow => {
-                    drawGameObject(queueArrow, arrow.direction, arrow.pos);
+                theQueue.arrows.forEach( arr => {
+                    switch(arr.direction) {
+                        case "Ready":
+                            drawGameObject("Ready"); break;
+                        case "Go":
+                            drawGameObject("Go"); break;
+                        case "Clear":
+                            drawGameObject("Clear"); break;
+                        default:
+                            drawGameObject(queueArrow, arr.direction, arr.pos);
+                    }
                 })
             }
             currentFrame++;
