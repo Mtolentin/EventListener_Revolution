@@ -31,19 +31,19 @@ ArrowQueue.prototype.judge = function judge(key) {
             && this.arrows[scan].direction === key) {
                 let hitArrow = this.arrows[scan];
                 let timing = Math.abs(this.arrows[scan].pos - 10);
-                if (timing < 44) {
+                if (timing < 34) {
                     this.arrows.splice(this.arrows.indexOf(hitArrow), 1);
                     return 4;
                 }
-                if (timing < 104) {
+                if (timing < 94) {
                     this.arrows.splice(this.arrows.indexOf(hitArrow), 1);
                     return 3;
                 }
-                if (timing < 138) {
+                if (timing < 128) {
                     this.arrows[this.arrows.indexOf(hitArrow)].canClick = false;
                     return 2;
                 }
-                if (timing < 184) {
+                if (timing < 174) {
                     this.arrows[this.arrows.indexOf(hitArrow)].canClick = false;
                     return 1;
                 }

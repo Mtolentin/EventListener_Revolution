@@ -9,6 +9,7 @@ export default function dibujar(chosenSong) {
     let canvas = document.createElement("canvas");
     canvas.width = 800;
     canvas.height = 600;
+    canvas.id = "theCanvas";
     parentDiv.appendChild(canvas);
     
     let audioChannel = document.getElementById("audioChannel");
@@ -267,6 +268,15 @@ export default function dibujar(chosenSong) {
             }
             currentFrame++;
         }, speed);
-        newVideo.onended = function () { clearInterval(stageLoop); }
+
+        newVideo.onended = () => { 
+            clearInterval(stageLoop);
+            
+        }
+
+        function backToMenu(){
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            
+        }
     }
 }
