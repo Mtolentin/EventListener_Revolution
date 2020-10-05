@@ -1,4 +1,5 @@
 const ArrowQueue = require("./arrowQueue");
+const loadMenu = require("./index");
 const soldTheWorld = require("./arrowArrays/soldTheWorld");
 const danzaKaduro = require("./arrowArrays/danzaKaduro");
 const cebuana = require("./arrowArrays/cebuana");
@@ -34,14 +35,14 @@ export default function dibujar(chosenSong) {
     verdict.id = "verdict";
     verdict.classList.add("empty");
     parentDiv.appendChild(verdict);
-    parentDiv.insertBefore(verdict, canvas);
+    // parentDiv.insertBefore(verdict, canvas);
 
     let banner = document.createElement("img");
     banner.id = "banner";
     banner.classList.add("offline");
     banner.src = "./dist/assets/gui/ready.png";
     parentDiv.appendChild(banner);
-    parentDiv.insertBefore(banner, canvas);
+    // parentDiv.insertBefore(banner, canvas);
 
     let comboScore = document.createElement("div");
     comboScore.innerText = "0 combo";
@@ -82,8 +83,12 @@ export default function dibujar(chosenSong) {
     parentDiv.insertBefore(newVideo, canvas);
     let stageArrow = new Image();
     let queueArrow = new Image();
+    let transitionL2R = new Image();
+    let transitionR2L = new Image();
     stageArrow.src = "./dist/assets/gui/arrows/aStage.png";
     queueArrow.src = "./dist/assets/gui/arrows/aNote.png";
+    transitionL2R.src = "./dist/assets/gui/L2R.png";
+    transitionR2L.src = "./dist/assets/gui/R2L.png";
 
     function Particle( x, y ) {
         this.x = x;
@@ -271,12 +276,40 @@ export default function dibujar(chosenSong) {
 
         newVideo.onended = () => { 
             clearInterval(stageLoop);
-            
+            backToMenu();
         }
 
         function backToMenu(){
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            
+            let evenL2Rs = [];
+            let oddR2Ls = [];
+            let offsetOdds = 920;
+            let offsetEvens = -920
+            for (let i = 0; i <= 570; i += 60) {
+                evenL2Rs.push([transitionL2R, offsetEvens, i]);
+                oddR2Ls.push([transitionR2L, offsetOdds, i + 30]);
+            }
+
+            let endingTransition = setInterval( () => {
+                evenL2Rs.forEach( bar => { 
+                    bar[1] += 15;
+                    context.drawImage(bar[0], bar[1], bar[2]);
+                });
+                oddR2Ls.forEach( bar => { 
+                    bar[1] -= 15;
+                    context.drawImage(bar[0], bar[1], bar[2]); 
+                });
+                console.log(evenL2Rs[0][1]);
+                
+                if (evenL2Rs[0][1] >= 800) {
+                    clearInterval(endingTransition);
+                    banner.classList.add("cleared");
+                    setTimeout ( () => {
+                        debugger
+                    }, 4000);
+                }
+            }, 15)
+
+
         }
     }
 }

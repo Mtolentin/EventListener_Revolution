@@ -10,25 +10,7 @@ body {
     100% { background-color:black; }
 }
 
-/* Centering the main element  */
-#gameScreen {
-    width: 800px;
-    height: 600px;
-    margin: 0px auto;
-}
 
-video {
-    position: absolute;
-    object-fit: fill;
-    overflow: hidden;
-    z-index: 4;
-}
-
-canvas {
-    position: absolute;
-    z-index: 5;
-    margin: 0px auto;
-}
 
 #theIntro1 {
     position: absolute;

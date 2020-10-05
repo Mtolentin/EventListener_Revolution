@@ -1,11 +1,33 @@
-#theCanvas
+/* Centering the main element  */
+#gameScreen {
+    width: 800px;
+    height: 600px;
+    margin: 0px auto;
+}
+
+video {
+    position: absolute;
+    object-fit: fill;
+    overflow: hidden;
+    z-index: 4;
+}
+
+canvas {
+    position: absolute;
+    z-index: 5;
+    margin: 0px auto;
+}
+
+#theCanvas {
+    z-index: 5;
+}
 
 #banner.offline{
     display: none;
 }
 
 #banner.ready{
-    position: absolute;
+    position: relative;
     top: 177px;
     left: 142px;
     height: 118px;
@@ -13,7 +35,7 @@
 }
 
 #banner.go{
-    position: absolute;
+    position: relative;
     top: 185px;
     left: 134px;
     height: 76px;
@@ -24,7 +46,7 @@
 
 #verdict{
     object-fit: cover;
-    position: absolute;
+    position: relative;
     object-position: 0px 0px;
     top: 165px;
     left: 279px;
@@ -43,7 +65,7 @@
 }
 
 #comboScore {
-    position: absolute;
+    position: relative;
     text-align: center;
     width: 800px;
     top: 207px;
