@@ -60,6 +60,7 @@ export default function dibujar(chosenSong) {
     newVideo.height = "600";
     let speed = 0;
     let stageQueue = [];
+    let comboCount = 0;
 
     switch (chosenSong) {
         case "trackNirvana":
@@ -154,7 +155,7 @@ export default function dibujar(chosenSong) {
         let maxFrame = numColumns * numRows - 1;
         let column = currentFrame % numColumns;
         let row = Math.floor(currentFrame / numColumns);
-        let comboCount = 0;
+        
 
         function registerPress(evt) {
             evt.preventDefault();
@@ -248,6 +249,9 @@ export default function dibujar(chosenSong) {
         }
 
         let stageLoop = setInterval(function() {
+            if (verdict.classList.contains("missed")) {
+                comboCount = 0;
+            }
             if (currentFrame > maxFrame) { currentFrame = 0; }
             column = currentFrame % numColumns;
             row = Math.floor(currentFrame / numColumns);
