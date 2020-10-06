@@ -14,7 +14,7 @@ ArrowQueue.prototype.move = function move() {
     if (this.arrows[0]) {
         this.arrows.forEach( arrow => {
             arrow.pos -= arrow.spd;
-            if (arrow.pos <= -100) {
+            if (arrow.pos <= -100 && arrow.canClick) {
                 let verdict = document.getElementById("verdict");
                 let comboScore = document.getElementById("comboScore");
                 this.arrows.splice(this.arrows.indexOf(arrow),1);
@@ -34,19 +34,19 @@ ArrowQueue.prototype.judge = function judge(key) {
             && this.arrows[scan].direction === key) {
                 let hitArrow = this.arrows[scan];
                 let timing = Math.abs(this.arrows[scan].pos - 10);
-                if (timing < 34) {
+                if (timing < 20) {
                     this.arrows.splice(this.arrows.indexOf(hitArrow), 1);
                     return 4;
                 }
-                if (timing < 94) {
+                if (timing < 40) {
                     this.arrows.splice(this.arrows.indexOf(hitArrow), 1);
                     return 3;
                 }
-                if (timing < 128) {
+                if (timing < 64) {
                     this.arrows[this.arrows.indexOf(hitArrow)].canClick = false;
                     return 2;
                 }
-                if (timing < 174) {
+                if (timing < 134) {
                     this.arrows[this.arrows.indexOf(hitArrow)].canClick = false;
                     return 1;
                 }

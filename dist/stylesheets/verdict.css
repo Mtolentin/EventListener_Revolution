@@ -1,13 +1,6 @@
 #verdict{
     object-fit: cover;
     position: relative;
-    object-position: 0px 0px;
-    top: 165px;
-    left: 279px;
-    height: 34px;
-    width: 265px;
-    z-index: 6;
-    clip: rect(0px,717px,37px, 0px);
     display: inline;
 }
 
@@ -16,21 +9,107 @@
 }
 
 #verdict.perfect {
-    
+    object-position: 0px 0px;
+    top: 165px;
+    left: 279px;
+    height: 34px;
+    width: 265px;
+    z-index: 6;
+    text-align: center;
+    clip: rect(0px,717px,37px, 0px);
+
+    animation-name: ratingPerfect;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 #verdict.great {
+    object-position: 0px -36px;
+    top: 165px;
+    left: 279px;
+    height: 34px;
+    width: 265px;
+    z-index: 6;
+    clip: rect(0px,717px,37px, 0px);
 
+    animation-name: ratingGreat;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 #verdict.good {
+    object-position: 0px -71px;
+    top: 165px;
+    left: 279px;
+    height: 35px;
+    width: 265px;
+    z-index: 6;
 
+    animation-name: ratingGood;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 #verdict.boo {
+    object-position: 0px -107px;
+    top: 165px;
+    left: 279px;
+    height: 39px;
+    width: 265px;
+    z-index: 6;
 
+    animation-name: ratingBoo;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 #verdict.missed {
+    object-position: 0px -147px;
+    top: 165px;
+    left: 279px;
+    height: 40px;
+    width: 265px;
+    z-index: 6;
 
+    animation-name: ratingMissed;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes ratingPerfect {
+    0%{ 
+
+    }
+    50% { 
+        transform: scale(1.1);
+    }
+    99% { 
+
+    }
+    100% {display: none;}
+}
+
+@keyframes ratingGreat {
+    0%   { background-color:white; }
+    100% { background-color:black; }
+}
+
+@keyframes ratingGood {
+    0%   { background-color:white; }
+    100% { background-color:black; }
+}
+
+@keyframes ratingBoo {
+    0%   { background-color:white; }
+    100% { background-color:black; }
+}
+
+@keyframes ratingMissed {
+    0%   { background-color:white; }
+    100% { background-color:black; }
 }

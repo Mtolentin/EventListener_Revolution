@@ -34,7 +34,3 @@
 #comboScore.empty {
     display: none;
 }
-
-#comboScore.active {
-    display: inline;
-}

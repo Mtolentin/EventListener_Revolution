@@ -183,7 +183,6 @@ export default function dibujar(chosenSong) {
                     if (comboCount > 2) {
                         comboScore.innerText = `${comboCount} combo`;
                         comboScore.className = "";
-                        comboScore.classList.add("active");
                     }
                 } else {
                     comboScore.className = "";
