@@ -1,0 +1,39 @@
+#banner.offline{
+    display: none;
+}
+
+#banner.ready{
+    position: relative;
+    top: 177px;
+    left: 142px;
+    height: 118px;
+    z-index: 6;
+}
+
+#banner.go{
+    position: relative;
+    top: 185px;
+    left: 134px;
+    height: 76px;
+    z-index: 6;
+}
+ 
+#comboScore {
+    position: relative;
+    text-align: center;
+    width: 800px;
+    top: 207px;
+    left: 109px;
+    font-family: righteous;
+    font-size: 34px;
+    z-index: 6;
+    color: coral;
+}
+
+#comboScore.empty {
+    display: none;
+}
+
+#comboScore.active {
+    display: inline;
+}

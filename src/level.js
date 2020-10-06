@@ -47,6 +47,7 @@ export default function dibujar(chosenSong) {
     let comboScore = document.createElement("div");
     comboScore.innerText = "0 combo";
     comboScore.id = "comboScore";
+    comboScore.classList.add("empty");
     parentDiv.appendChild(comboScore);
 
     let context = canvas.getContext("2d");
@@ -59,7 +60,6 @@ export default function dibujar(chosenSong) {
     newVideo.height = "600";
     let speed = 0;
     let stageQueue = [];
-    let comboCount = 0;
 
     switch (chosenSong) {
         case "trackNirvana":
@@ -179,7 +179,16 @@ export default function dibujar(chosenSong) {
                         case "ArrowUp": createParticles(458, 69); break;
                         case "ArrowRight": createParticles(587, 69); break;
                     }
+                    if (comboCount > 2) {
+                        comboScore.innerText = `${comboCount} combo`;
+                        comboScore.className = "";
+                        comboScore.classList.add("active");
+                    }
+                } else {
+                    comboScore.className = "";
+                    comboScore.classList.add("empty");
                 }
+
             }
         }
 

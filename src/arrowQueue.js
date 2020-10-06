@@ -16,9 +16,12 @@ ArrowQueue.prototype.move = function move() {
             arrow.pos -= arrow.spd;
             if (arrow.pos <= -100) {
                 let verdict = document.getElementById("verdict");
+                let comboScore = document.getElementById("comboScore");
                 this.arrows.splice(this.arrows.indexOf(arrow),1);
                 verdict.className = "";
                 verdict.classList.add("missed");
+                comboScore.className = "";
+                comboScore.classList.add("empty");
             }
         });
     }
