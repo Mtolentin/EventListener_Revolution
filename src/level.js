@@ -162,6 +162,7 @@ export default function dibujar(chosenSong) {
             let timingGrade = theQueue.judge(evt.key);
             if (timingGrade > 0) {
                 verdict.className = "";
+                void verdict.offsetWidth;
                 switch (timingGrade) {
                     case 4: verdict.classList.add("perfect");
                         comboCount += 1; break;

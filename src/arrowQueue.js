@@ -14,14 +14,14 @@ ArrowQueue.prototype.move = function move() {
     if (this.arrows[0]) {
         this.arrows.forEach( arrow => {
             arrow.pos -= arrow.spd;
-            if (arrow.pos <= -100 && arrow.canClick) {
-                let verdict = document.getElementById("verdict");
-                let comboScore = document.getElementById("comboScore");
+            if (arrow.pos <= -100) {
                 this.arrows.splice(this.arrows.indexOf(arrow),1);
-                verdict.className = "";
-                verdict.classList.add("missed");
-                comboScore.className = "";
-                comboScore.classList.add("empty");
+                if (arrow.canClick) {
+                    let verdict = document.getElementById("verdict");
+                    verdict.className = "";
+                    void verdict.offsetWidth;
+                    verdict.classList.add("missed");
+                }
             }
         });
     }
