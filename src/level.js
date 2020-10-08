@@ -337,8 +337,8 @@ export default function dibujar(chosenSong) {
 
         function backToMenu(){
             clearInterval(stageLoop);
-            removeEventListener("keydown",registerClick);
-            removeEventListener("click", registerPress);
+            document.removeEventListener("keydown", registerClick);
+            document.removeEventListener("click", registerPress);
             fXCheering.play();
             comboScore.className = "";
             comboScore.classList.add("empty");
