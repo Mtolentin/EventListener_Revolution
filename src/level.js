@@ -29,6 +29,11 @@ export default function dibujar(chosenSong) {
     fXCheering.id = "fXCheering";
     fXCheering.src = "./dist/assets/sounds/cheering.ogg";
     audioChannel.appendChild(fXCheering);
+
+    let fXAgain = document.createElement("audio");
+    fXAgain.id = "fXAgain";
+    fXAgain.src = "./dist/assets/sounds/again.ogg"
+    audioChannel.appendChild(fXAgain);
     
     let verdict = document.createElement("img");
     verdict.src = "./dist/assets/gui/judge.png";
@@ -94,11 +99,10 @@ export default function dibujar(chosenSong) {
     let buttonESC = new Image();
     let buttonPlay = new Image();
     let buttonMute = new Image();
-
     buttonESC.src = "./dist/assets/gui/esc.png";
     buttonPlay.src = "./dist/assets/gui/playing.png";
     buttonMute.src = "./dist/assets/gui/muted.png";
-
+    let soundStatus = buttonPlay;
 
     function Particle( x, y ) {
         this.x = x;
@@ -155,6 +159,7 @@ export default function dibujar(chosenSong) {
     function animate() {
         let origin = Date.now();
         let theQueue = new ArrowQueue();
+        document.addEventListener("click", registerClick);
         document.addEventListener("keydown", registerPress);
         let numColumns = 5;
         let numRows = 20;
@@ -164,10 +169,29 @@ export default function dibujar(chosenSong) {
         let maxFrame = numColumns * numRows - 1;
         let column = currentFrame % numColumns;
         let row = Math.floor(currentFrame / numColumns);
-        
 
+        function registerClick(evt) {
+            const offset = canvas.getBoundingClientRect();
+            const rect = { x: offset.x, y: 570 + offset.y, dim: 30 };
+            const pos = { x: evt.clientX, y: evt.clientY };
+            if (pos.x > rect.x && pos.x < rect.x + rect.dim &&
+                pos.y < rect.y + rect.dim && pos.y > rect.y) {
+                if (newVideo.muted) {
+                    soundStatus = buttonPlay;
+                    newVideo.muted = false;
+                } else {
+                    soundStatus = buttonMute;
+                    newVideo.muted = true;
+                }
+            } else if ( pos.x > rect.x && pos.x < rect.x + rect.dim &&
+                        pos.y < offset.y + rect.dim && pos.y > offset.y) {
+                clearLevel();
+            }
+        }
+        
         function registerPress(evt) {
             evt.preventDefault();
+            if (evt.key === "Escape") { clearLevel(); }
             let timingGrade = theQueue.judge(evt.key);
             if (timingGrade > 0) {
                 verdict.className = "";
@@ -272,7 +296,8 @@ export default function dibujar(chosenSong) {
             drawGameObject(stageArrow, "ArrowUp");
             drawGameObject(stageArrow, "ArrowRight");
 
-
+            context.drawImage(buttonESC, 0, 0);
+            context.drawImage(soundStatus, 0, 570);
 
             let i = particles.length;
             while( i-- ) { particles[i].draw(); particles[i].update( i ); }
@@ -303,8 +328,18 @@ export default function dibujar(chosenSong) {
 
         newVideo.onended = () => { backToMenu(); }
 
+        function clearLevel() {
+            newVideo.pause();
+            banner.className = "";
+            banner.classList.add("offline");
+            backToMenu();
+        }
+
         function backToMenu(){
             clearInterval(stageLoop);
+            removeEventListener("keydown",registerClick);
+            removeEventListener("click", registerPress);
+            fXCheering.play();
             comboScore.className = "";
             comboScore.classList.add("empty");
             verdict.className = "";
@@ -334,8 +369,8 @@ export default function dibujar(chosenSong) {
                     clearInterval(endingTransition);
                     banner.classList.add("cleared");
                     setTimeout ( () => {
-                        debugger
-                    }, 4000);
+                        fXAgain.play();
+                    }, 3000);
                 }
             }, 15)
         }

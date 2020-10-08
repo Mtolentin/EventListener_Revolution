@@ -84,10 +84,10 @@ function EvalSound(soundobj) {
 //     };
     
 
-//     if (pos.x > rect.x &&
-//         pos.x < rect.x + rect.width &&
-//         pos.y < rect.y + rect.height &&
-//         pos.y > rect.y) {
+    // if (pos.x > rect.x &&
+    //     pos.x < rect.x + rect.width &&
+    //     pos.y < rect.y + rect.height &&
+    //     pos.y > rect.y) {
 
 
 //         game.play(canvas, initButtonTest, "testSong");
