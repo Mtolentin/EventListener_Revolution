@@ -64,7 +64,7 @@ export default function dibujar(chosenSong) {
     newVideo.muted = false;
     newVideo.width = "800";
     newVideo.height = "600";
-    let speed = 0;
+    let speed = 20;
     let stageQueue = [];
     let comboCount = 0;
 
@@ -72,17 +72,14 @@ export default function dibujar(chosenSong) {
         case "trackNirvana":
             newVideo.src = "./dist/assets/songs/soldTheWorld.mp4";
             stageQueue = [...soldTheWorld.default];
-            speed = 20;
             break;
         case "trackDanzaKaduro":
             newVideo.src = "./dist/assets/songs/danzaKaduro.mp4";
             stageQueue = [...danzaKaduro.default];
-            speed = 20;
             break;
         case "trackCebuana":
             newVideo.src = "./dist/assets/songs/cebuana.mp4";
             stageQueue = [...cebuana.default];
-            speed = 20;
             break;
     }
     
