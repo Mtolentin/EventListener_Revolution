@@ -196,7 +196,7 @@ export default function design(chosenSong) {
             });
             console.log(theQueue.scribe); 
             console.log(standardDeviation(theQueue.delays));
-            debugger;
+            // debugger;
         }
 
         function standardDeviation(values){

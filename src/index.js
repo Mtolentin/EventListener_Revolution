@@ -22,7 +22,7 @@ setTimeout(function () { parentDiv.appendChild(introText2); }, 4500);
 parentDiv.addEventListener('click', loadMenu, {once: true} );
 
 
-function loadMenu(evt = null) {
+export default function loadMenu(evt = null) {
     fXSelect.play();
     game_util.screenFade();
     setTimeout( function() {

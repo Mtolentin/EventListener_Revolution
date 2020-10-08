@@ -1,5 +1,6 @@
 const ArrowQueue = require("./arrowQueue");
-const loadMenu = require("./index");
+import * as game_util from './game_util';
+import loadMenu from './index';
 const soldTheWorld = require("./arrowArrays/soldTheWorld");
 const danzaKaduro = require("./arrowArrays/danzaKaduro");
 const cebuana = require("./arrowArrays/cebuana");
@@ -70,21 +71,21 @@ export default function dibujar(chosenSong) {
     switch (chosenSong) {
         case "trackNirvana":
             newVideo.src = "./dist/assets/songs/soldTheWorld.mp4";
-            stageQueue = soldTheWorld.default;
+            stageQueue = [...soldTheWorld.default];
             speed = 20;
             break;
         case "trackDanzaKaduro":
             newVideo.src = "./dist/assets/songs/danzaKaduro.mp4";
-            stageQueue = danzaKaduro.default;
+            stageQueue = [...danzaKaduro.default];
             speed = 20;
             break;
         case "trackCebuana":
             newVideo.src = "./dist/assets/songs/cebuana.mp4";
-            stageQueue = cebuana.default;
+            stageQueue = [...cebuana.default];
             speed = 20;
             break;
     }
-
+    
     parentDiv.appendChild(newVideo);
     parentDiv.insertBefore(newVideo, canvas);
     let stageArrow = new Image();
@@ -226,6 +227,9 @@ export default function dibujar(chosenSong) {
             }
         }
 
+        let eventListenerReference1 = registerClick;
+        let eventListenerReference2 = registerPress;
+
         function drawGameObject(type, direction = "ArrowLeft", pos = 0) {
             if (typeof type !== "string") {
                 let arrowParams = [];
@@ -337,8 +341,8 @@ export default function dibujar(chosenSong) {
 
         function backToMenu(){
             clearInterval(stageLoop);
-            document.removeEventListener("keydown", registerClick);
-            document.removeEventListener("click", registerPress);
+            document.removeEventListener("click", eventListenerReference1);
+            document.removeEventListener("keydown", eventListenerReference2);
             fXCheering.play();
             comboScore.className = "";
             comboScore.classList.add("empty");
@@ -363,16 +367,42 @@ export default function dibujar(chosenSong) {
                     bar[1] -= 15;
                     context.drawImage(bar[0], bar[1], bar[2]); 
                 });
-                console.log(evenL2Rs[0][1]);
                 
                 if (evenL2Rs[0][1] >= 800) {
                     clearInterval(endingTransition);
+                    banner.className = "";
+                    banner.src = "./dist/assets/gui/cleared.png"
                     banner.classList.add("cleared");
                     setTimeout ( () => {
+                        comboScore.innerText = "Click to return to Menu";
+                        comboScore.classList.remove("empty");
+                        comboScore.classList.add("ended");
                         fXAgain.play();
+                        // debugger
+                        parentDiv.addEventListener(
+                            'click', transitionBack, {once: true}
+                        );
+
                     }, 3000);
                 }
+
             }, 15)
+
+            let transitionBack = function (evt = null){
+                game_util.screenFade();
+                let del = parentDiv.firstElementChild;
+                while (parentDiv.childNodes.length > 0) {
+                    del = parentDiv.firstElementChild;
+                    parentDiv.removeChild(del);
+                }
+                del = audioChannel.lastElementChild;
+                while (audioChannel.childNodes.length > 1) {
+                    if (del.id == "fXSelect") { continue; }
+                    audioChannel.removeChild(del);
+                    del = audioChannel.lastElementChild;
+                }
+                loadMenu();
+            }
         }
     }
 }

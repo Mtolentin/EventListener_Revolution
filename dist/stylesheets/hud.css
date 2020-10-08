@@ -17,7 +17,25 @@
     height: 76px;
     z-index: 6;
 }
- 
+
+#banner.cleared{
+    position: relative;
+    top: 204px;
+    left: 136px;
+    height: 101px;
+    z-index: 6;
+
+    animation-name: bannerCleared;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes bannerCleared {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 #comboScore {
     position: relative;
     text-align: center;
@@ -34,3 +52,21 @@
 #comboScore.empty {
     display: none;
 }
+
+#comboScore.ended {
+    top: 244px;
+    left: 0px;
+    text-shadow:  0px 0px white;
+    color: gold;
+
+    animation-name: ending;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: alternate;
+}
+
+@keyframes ending {
+    0%   { opacity: 0; }
+    50%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
