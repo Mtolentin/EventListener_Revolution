@@ -91,6 +91,15 @@ export default function dibujar(chosenSong) {
     transitionL2R.src = "./dist/assets/gui/L2R.png";
     transitionR2L.src = "./dist/assets/gui/R2L.png";
 
+    let buttonESC = new Image();
+    let buttonPlay = new Image();
+    let buttonMute = new Image();
+
+    buttonESC.src = "./dist/assets/gui/esc.png";
+    buttonPlay.src = "./dist/assets/gui/playing.png";
+    buttonMute.src = "./dist/assets/gui/muted.png";
+
+
     function Particle( x, y ) {
         this.x = x;
         this.y = y;
@@ -251,6 +260,8 @@ export default function dibujar(chosenSong) {
         let stageLoop = setInterval(function() {
             if (verdict.classList.contains("missed")) {
                 comboCount = 0;
+                comboScore.className = "";
+                comboScore.classList.add("empty");
             }
             if (currentFrame > maxFrame) { currentFrame = 0; }
             column = currentFrame % numColumns;
@@ -260,6 +271,9 @@ export default function dibujar(chosenSong) {
             drawGameObject(stageArrow, "ArrowDown");
             drawGameObject(stageArrow, "ArrowUp");
             drawGameObject(stageArrow, "ArrowRight");
+
+
+
             let i = particles.length;
             while( i-- ) { particles[i].draw(); particles[i].update( i ); }
             theQueue.move();
@@ -287,12 +301,15 @@ export default function dibujar(chosenSong) {
             currentFrame++;
         }, speed);
 
-        newVideo.onended = () => { 
-            clearInterval(stageLoop);
-            backToMenu();
-        }
+        newVideo.onended = () => { backToMenu(); }
 
         function backToMenu(){
+            clearInterval(stageLoop);
+            comboScore.className = "";
+            comboScore.classList.add("empty");
+            verdict.className = "";
+            verdict.classList.add("empty");
+
             let evenL2Rs = [];
             let oddR2Ls = [];
             let offsetOdds = 920;
@@ -321,8 +338,6 @@ export default function dibujar(chosenSong) {
                     }, 4000);
                 }
             }, 15)
-
-
         }
     }
 }
