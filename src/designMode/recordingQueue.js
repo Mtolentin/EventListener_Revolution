@@ -16,7 +16,7 @@ ArrowQueue.prototype.spawn = function spawn(direction, bpm, hitTime) {
 
 }
 
-ArrowQueue.prototype.move = function move(context, origin) {
+ArrowQueue.prototype.move = function move() {
     if (this.arrows[0]) {
         this.arrows.forEach( arrow => {
             arrow.pos += arrow.spd;

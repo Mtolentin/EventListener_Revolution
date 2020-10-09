@@ -1,5 +1,5 @@
-import dibujar from './level';
-// import design from './designMode/listen';
+// import dibujar from './level';
+import design from './designMode/listen';
 
 export default function displaySongList_v1(parentDiv) {
 
@@ -93,8 +93,8 @@ export default function displaySongList_v1(parentDiv) {
                 clearPrevs.removeChild(del);
                 del = clearPrevs.lastElementChild;
             }
-            dibujar(trackID);
-            // design(trackID);
+            // dibujar(trackID);
+            design(trackID);
         }, 3000)
     }
 }
