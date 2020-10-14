@@ -1,5 +1,3 @@
-
-
 let cebuana = [
       [4700, "Ready"]
     , [6300, "Go"]
